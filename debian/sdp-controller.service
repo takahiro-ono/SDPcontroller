@@ -1,0 +1,14 @@
+[Unit]
+Description=SDP Controller
+After=network.target
+
+[Service]
+Type=simple
+User=sdp-controller
+WorkingDirectory=/usr/share/sdp-controller
+ExecStart=/bin/sh -c '/usr/bin/node /usr/share/sdp-controller/sdpController.js >> /var/log/sdp-controller.log 2>&1'
+KillMode=control-group
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=multi-user.target

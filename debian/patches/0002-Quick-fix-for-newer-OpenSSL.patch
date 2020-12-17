@@ -1,0 +1,28 @@
+From: Takahiro Ono <takahiro.ono@example.com>
+Date: Sun, 29 Nov 2020 12:46:17 +0900
+Subject: Quick fix for newer OpenSSL
+
+---
+ sdpCredentialMaker.js | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/sdpCredentialMaker.js b/sdpCredentialMaker.js
+index 48b7c9b..1e793f1 100644
+--- a/sdpCredentialMaker.js
++++ b/sdpCredentialMaker.js
+@@ -110,7 +110,14 @@ credentialMaker.prototype.getNewCredentials =	function(memberDetails, callback)
+ function getNewKey(keyLen, callback) {
+   // this function wants key len in bits, our config 
+   // specified it in bytes, so multiply by 8
+-  pem.createPrivateKey(keyLen*8, function(err, key) {
++
++  // Quick fix: Generate 512-byte key (Original length was 256-byte)
++  // Newer OpenSSL does not accept key length less than 512 bytes
++  // Reference:
++  // - https://github.com/openssl/openssl/blob/master/crypto/rsa/rsa_gen.c
++  // - https://github.com/openssl/openssl/blob/master/crypto/rsa/rsa_local.h
++  pem.createPrivateKey(keyLen*8*2, function(err, key) {
++  // pem.createPrivateKey(keyLen*8, function(err, key) {
+     if (err) {
+         console.log("key callback got an error");
+         callback(err, null);

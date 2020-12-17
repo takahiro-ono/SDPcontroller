@@ -1,0 +1,97 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:       sdp-controller
+# Required-Start:    $local_fs $network $named
+# Required-Stop:     $local_fs $network $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts SDP Controller
+# Description:       starts SDP Controller
+### END INIT INFO
+
+NAME=sdp-controller
+DESC="SDP Controller"
+USER=sdp-controller
+SHARE_DIR=/usr/share/${NAME}
+DAEMON=${SHARE_DIR}/sdpController.js
+PID_FILE=/run/${NAME}.pid
+LOG_FILE=/var/log/${NAME}.log
+
+# Uncomment below to disable systemctl_redirect (/lib/lsb/init-functions.d/40-systemd)
+#SYSTEMCTL_SKIP_REDIRECT=1
+
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+start_service() {
+    start-stop-daemon \
+        --start \
+        --chuid ${USER} \
+        --chdir ${SHARE_DIR} \
+        --pidfile ${PID_FILE} \
+        --make-pidfile \
+        --background \
+        --no-close \
+        --exec /usr/bin/node -- ${DAEMON} \
+        >> ${LOG_FILE} 2>&1
+}
+
+stop_service() {
+    start-stop-daemon \
+        --stop \
+        --quiet \
+        --pidfile ${PID_FILE} \
+        --remove-pidfile
+}
+
+case $1 in
+    start)
+        log_daemon_msg "Starting ${DESC}" ${NAME}
+
+        start_service
+        case $? in
+            0|1) log_end_msg 0 ;;
+            *) log_end_msg 1 ;;
+        esac
+    ;;
+
+    stop)
+        log_daemon_msg "Stopping ${DESC}" ${NAME}
+
+        stop_service
+        case $? in
+            0|1) log_end_msg 0 ;;
+            *) log_end_msg 1 ;;
+        esac
+    ;;
+
+    status)
+        status_of_proc -p ${PID_FILE} ${DAEMON} ${NAME} && exit 0 || exit $?
+    ;;
+
+    restart|force-reload)
+        log_daemon_msg "Restarting ${DESC}" ${NAME}
+
+        # Stop service
+        stop_service
+
+        # Wait before starting service
+        sleep 1
+
+        # Start service
+        start_service
+        case $? in
+            0|1) log_end_msg 0 ;;
+            *) log_end_msg 1 ;;
+        esac
+    ;;
+
+    *)
+        echo "Usage: ${NAME} start|stop|status|restart|force-reload"
+        exit 1
+    ;;
+
+esac
+
+exit 0

@@ -1,0 +1,9 @@
+COPYING usr/share/sdp-controller/
+README.md usr/share/sdp-controller/
+config.js etc/sdp-controller/
+genCredentials.js usr/share/sdp-controller/
+package.json usr/share/sdp-controller/
+sdpController.js usr/share/sdp-controller/
+sdpCredentialMaker.js usr/share/sdp-controller/
+setup/create-certs.sh usr/share/sdp-controller/setup/
+setup/sdp.sql usr/share/sdp-controller/setup/

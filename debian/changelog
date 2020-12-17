@@ -1,0 +1,13 @@
+sdp-controller (0.1.0-1) unstable; urgency=medium
+
+  * Initial release; based on Open source SDP developed by on Waverley Labs
+    - URL: https://github.com/WaverleyLabs/SDPcontroller
+    - Date: 2020/11/29
+    - Upstream commit: 61a190e322d88e97b833cc859298ba7eb50f16a6
+  * Updated configs for SDP Controller
+    - /etc/sdp-controller/config.js
+  * Added systemd unit file and init script for SDP Controller
+  * Quick bug fix: Generate 512-byte key for new OpenSSL
+    - /usr/share/sdp-controller/sdpCredentialMaker.js
+
+ -- Takahiro Ono <takahiro.ono@example.com>  Sun, 29 Nov 2020 01:36:00 +0000

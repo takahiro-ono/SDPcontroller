@@ -1,0 +1,38 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+
+%:
+	dh $@
+
+override_dh_install:
+	dh_install
+	#
+	# Create dummy certificates
+	mkdir -p debian/sdp-controller/etc/sdp-controller/certs
+	touch \
+		debian/sdp-controller/etc/sdp-controller/certs/ca.crt \
+		debian/sdp-controller/etc/sdp-controller/certs/ca.key \
+		debian/sdp-controller/etc/sdp-controller/certs/server.crt \
+		debian/sdp-controller/etc/sdp-controller/certs/server.key
+	chmod 600 \
+		debian/sdp-controller/etc/sdp-controller/certs/ca.key \
+		debian/sdp-controller/etc/sdp-controller/certs/server.key
+
+override_dh_installinit:
+	dh_installinit --no-start -- defaults-disabled
+
+override_dh_installsystemd:
+	dh_installsystemd --no-start --no-enable

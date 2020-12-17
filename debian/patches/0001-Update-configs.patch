@@ -1,0 +1,34 @@
+From: Takahiro Ono <takahiro.ono@example.com>
+Date: Sun, 29 Nov 2020 12:41:40 +0900
+Subject: Update configs
+
+---
+ config.js | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/config.js b/config.js
+index 6f0ff2a..294169d 100644
+--- a/config.js
++++ b/config.js
+@@ -22,8 +22,8 @@ module.exports = {
+ 	'allowLegacyAccessRequests': false,
+ 
+ 	// can create these using ./setup/create-certs.sh
+-	'serverCert': './path/server.crt',
+-	'serverKey':  './path/server.key',
++	'serverCert': '/etc/sdp-controller/certs/server.crt',
++	'serverKey':  '/etc/sdp-controller/certs/server.key',
+ 
+ 	// to be prompted for a password, set this field
+ 	// to a null string using '' (that's 2 single quotes
+@@ -32,8 +32,8 @@ module.exports = {
+ 	'serverKeyPasswordRequired': true,
+ 
+ 	// can create these using ./setup/create-certs.sh
+-	'caCert': './path/ca.crt',
+-	'caKey': './path/ca.key',
++	'caCert': '/etc/sdp-controller/certs/ca.crt',
++	'caKey': '/etc/sdp-controller/certs/ca.key',
+ 
+ 	// to be prompted for a password, delete this field or
+ 	// set it to a null string using '' (that's 2 single 

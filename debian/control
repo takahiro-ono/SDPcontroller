@@ -1,0 +1,22 @@
+Source: sdp-controller
+Section: admin
+Priority: optional
+Maintainer: Takahiro Ono <takahiro.ono@example.com>
+Build-Depends:
+    debhelper (>= 11),
+Standards-Version: 4.1.3
+Homepage: https://github.com/WaverleyLabs/SDPcontroller
+
+Package: sdp-controller
+Architecture: any
+Pre-Depends:
+    ${misc:Pre-Depends},
+Depends:
+    nodejs (<< 13),
+    openssl,
+    lsb-base,
+    adduser,
+    init-system-helpers (>=1.50),
+    ${misc:Depends},
+Description: Open source SDP Controller
+ Open source SDP developed by Waverley Labs
