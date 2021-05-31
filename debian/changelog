@@ -1,8 +1,17 @@
+sdp-controller (0.2.0-1) unstable; urgency=medium
+
+  * Based on Open source SDP developed by on Waverley Labs
+    - Date: 2020/12/19
+    - Upstream commit: 54fbca8e9b3a2f164c1540324ee9f510141b08b4
+  * Upstream bug fix: Use longer key length
+
+ -- Takahiro Ono <takahiro.ono@example.com>  Mon, 31 May 2021 14:59:13 +0000
+
 sdp-controller (0.1.0-1) unstable; urgency=medium
 
   * Initial release; based on Open source SDP developed by on Waverley Labs
     - URL: https://github.com/WaverleyLabs/SDPcontroller
-    - Date: 2020/11/29
+    - Date: 2020/07/30
     - Upstream commit: 61a190e322d88e97b833cc859298ba7eb50f16a6
   * Updated configs for SDP Controller
     - /etc/sdp-controller/config.js
